@@ -1,5 +1,5 @@
 #pragma once
-#if defined(DM_PLATFORM_IOS)
+#if defined(DM_PLATFORM_IOS) || defined(DM_PLATFORM_ANDROID)
 
 extern void Ironsource_Init(const char* api_key, bool gdpr_consent);
 extern void Ironsource_ValidateIntegration();
