@@ -1,0 +1,11 @@
+repositories {
+	// https://developers.ironsrc.com/ironsource-mobile/android/android-sdk/#step-1
+    maven {
+        url "https://dl.bintray.com/ironsource-mobile/android-sdk"
+    }
+}
+
+dependencies {
+	// https://developers.ironsrc.com/ironsource-mobile/android/android-sdk/#step-1
+    implementation 'com.ironsource.sdk:mediationsdk:6.14.0.1@jar' 
+}
