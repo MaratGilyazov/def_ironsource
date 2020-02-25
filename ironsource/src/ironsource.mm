@@ -87,6 +87,18 @@ UIViewController *uiViewController;
 
 @end
 
+void Ironsource_InitExtension() {
+
+}
+
+void Ironsource_OnAppPause() {
+
+}
+
+void Ironsource_OnAppResume() {
+
+}
+
 void Ironsource_Init(const char* api_key, bool gdpr_consent) {
     if (gdpr_consent) {
         [IronSource setConsent:YES];

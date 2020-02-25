@@ -110,6 +110,7 @@ dmExtension::Result AppInitializeIronsource(dmExtension::AppParams* params)
 dmExtension::Result InitializeIronsource(dmExtension::Params* params)
 {
     LuaInit(params->m_L);
+    Ironsource_InitExtension();
     IronsourceCallback_initialize();
     return dmExtension::RESULT_OK;
 }
@@ -129,6 +130,14 @@ static dmExtension::Result UpdateIronsource(dmExtension::Params* params)
 {
     IronsourceCallback_callback_updates();
     return dmExtension::RESULT_OK;
+}
+
+static void OnEventIronsource(dmExtension::Params* params, const dmExtension::Event* event)
+{
+    if( event->m_Event == dmExtension::EVENT_ID_ACTIVATEAPP )
+        Ironsource_OnAppResume();
+    else if( event->m_Event == dmExtension::EVENT_ID_DEACTIVATEAPP )
+        Ironsource_OnAppPause();
 }
 
 #else // unsupported platforms
@@ -159,7 +168,12 @@ static dmExtension::Result UpdateIronsource(dmExtension::Params* params)
     return dmExtension::RESULT_OK;
 }
 
+static void OnEventIronsource(dmExtension::Params* params, const dmExtension::Event* event)
+{
+    return;
+}
+
 #endif
 
 
-DM_DECLARE_EXTENSION(EXTENSION_NAME, LIB_NAME, AppInitializeIronsource, AppFinalizeIronsource, InitializeIronsource, UpdateIronsource, 0, FinalizeIronsource)
+DM_DECLARE_EXTENSION(EXTENSION_NAME, LIB_NAME, AppInitializeIronsource, AppFinalizeIronsource, InitializeIronsource, UpdateIronsource, OnEventIronsource, FinalizeIronsource)

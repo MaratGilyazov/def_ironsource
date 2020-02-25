@@ -48,6 +48,18 @@ static jclass GetClass(JNIEnv* env, const char* classname)
     return outcls;
 }
 
+void Ironsource_InitExtension() {
+    dmLogUserDebug("Ironsource_InitExtension");
+}
+
+void Ironsource_OnAppPause() {
+    dmLogUserDebug("Ironsource_OnAppPause");
+}
+
+void Ironsource_OnAppResume() {
+    dmLogUserDebug("Ironsource_OnAppResume");
+}
+
 void Ironsource_Init(const char* api_key, bool gdpr_consent) {
     AttachScope attachscope;
     JNIEnv* env = attachscope.m_Env;
