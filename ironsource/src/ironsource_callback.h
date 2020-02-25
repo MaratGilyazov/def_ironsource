@@ -37,7 +37,6 @@ struct CallbackData
 };
 
 void IronsourceCallback_set_callback(lua_State* L, int pos);
-void IronsourceCallback_invoke_callback(int type);
 void IronsourceCallback_callback_updates();
 void IronsourceCallback_initialize();
 void IronsourceCallback_finalize();
