@@ -1,0 +1,7 @@
+name: "Ironsource"
+
+platforms:
+    ios:
+        context:
+            frameworks: ["UIKit", "AdSupport", "StoreKit"]
+            linkFlags:  ["-ObjC"]
