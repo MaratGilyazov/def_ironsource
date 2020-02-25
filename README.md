@@ -94,7 +94,7 @@ ironsource_callback(self, message_type, message) - callback for all types of IS 
 Prints info to iOS consloe to validate your integration. More info here: https://developers.ironsrc.com/ironsource-mobile/ios/integration-helper-ios/
 #### ironsource.load_interstitial()
 Preloads interstitial ads, call it before showing interstitials and either wait for ironsource.INTERSTITIAL_DID_LOAD event or check manually if ironsource.is_interstitial_ready().
-ATTENTION! Ypu need to load interstitial each time when the previous ad was shown and closed. 
+ATTENTION! You need to load interstitial ad each time when the previous ad was shown and closed. 
 #### ironsource.is_interstitial_ready()
 Returns true if the interstitial ad is ready, false - otherwise
 #### ironsource.show_interstitial()
