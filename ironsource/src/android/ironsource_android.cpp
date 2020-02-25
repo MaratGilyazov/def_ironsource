@@ -48,37 +48,61 @@ static jclass GetClass(JNIEnv* env, const char* classname)
     return outcls;
 }
 
+struct IronSourceWrapperClass
+{
+  jobject                 m_ISW_JNI;
+
+  jmethodID               m_init;
+  jmethodID               m_onPause;
+  jmethodID               m_onResume;
+  jmethodID               m_validateIntegration;
+};
+
+IronSourceWrapperClass g_isw;
+
 void Ironsource_InitExtension() {
-    dmLogUserDebug("Ironsource_InitExtension");
+    AttachScope attachscope;
+    JNIEnv* env = attachscope.m_Env;
+    
+    jclass cls = GetClass(env, "com/afeskov/defironsource/IronSourceWrapper");
+    g_isw.m_init = env->GetMethodID(cls, "init", "(Ljava/lang/String;)V");
+    g_isw.m_onPause = env->GetMethodID(cls, "onPause", "()V");
+    g_isw.m_onResume = env->GetMethodID(cls, "onResume", "()V");
+    g_isw.m_validateIntegration = env->GetMethodID(cls, "validateIntegration", "()V");
+
+    jmethodID jni_constructor = env->GetMethodID(cls, "<init>", "(Landroid/app/Activity;)V");
+    g_isw.m_ISW_JNI = env->NewGlobalRef(env->NewObject(cls, jni_constructor, dmGraphics::GetNativeAndroidActivity()));
 }
 
 void Ironsource_OnAppPause() {
-    dmLogUserDebug("Ironsource_OnAppPause");
+    AttachScope attachscope;
+    JNIEnv* env = attachscope.m_Env;
+
+    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_onPause);
 }
 
 void Ironsource_OnAppResume() {
-    dmLogUserDebug("Ironsource_OnAppResume");
+    AttachScope attachscope;
+    JNIEnv* env = attachscope.m_Env;
+
+    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_onResume);
 }
 
 void Ironsource_Init(const char* api_key, bool gdpr_consent) {
     AttachScope attachscope;
     JNIEnv* env = attachscope.m_Env;
 
-    jclass cls = GetClass(env, "com.ironsource.mediationsdk.IronSource");
-    jmethodID method = env->GetStaticMethodID(cls, "init", "(Landroid/app/Activity;Ljava/lang/String;)V");
     jstring appkey = env->NewStringUTF(api_key);
-    env->CallStaticVoidMethod(cls, method, dmGraphics::GetNativeAndroidActivity(), appkey);
-    // TODO IronSource.setConsent(gdpr_consent);
+    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_init, appkey);
     env->DeleteLocalRef(appkey);
+    // TODO IronSource.setConsent(gdpr_consent);
 }
 
 void Ironsource_ValidateIntegration() {
     AttachScope attachscope;
     JNIEnv* env = attachscope.m_Env;
 
-    jclass cls = GetClass(env, "com.ironsource.mediationsdk.integration.IntegrationHelper");
-    jmethodID method = env->GetStaticMethodID(cls, "validateIntegration", "(Landroid/app/Activity;)V");
-    env->CallStaticVoidMethod(cls, method, dmGraphics::GetNativeAndroidActivity());
+    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_validateIntegration);
 }
 
 void Ironsource_LoadInterstitial() { }

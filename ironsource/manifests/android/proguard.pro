@@ -1,3 +1,8 @@
+# Keep all classes for Deflod ironSource wrapper
+-keep class com.afeskov.defironsource.** {
+	*;
+}
+
 # Keep ironSource SDK
 -keepclassmembers class com.ironsource.sdk.controller.IronSourceWebView$JSInterface {
     public *;
