@@ -39,6 +39,39 @@ public class IronSourceWrapper {
         IntegrationHelper.validateIntegration(activity);
     }
 
+    public void setConsent(boolean consent) {
+        IronSource.setConsent(consent);
+    }
+
+    public void loadInterstitial() {
+        IronSource.loadInterstitial();
+    }
+
+    public boolean isInterstitialReady() {
+        return IronSource.isInterstitialReady();
+    }
+
+    public void showInterstitial(String placementName) {
+        if (placementName != null) {
+            IronSource.showInterstitial(placementName);
+        } else {
+            IronSource.showInterstitial();
+        }
+    }
+
+    public boolean isRewardedReady() {
+        return IronSource.isRewardedVideoAvailable();
+    }
+
+    public void showRewarded(String placementName) {
+        if (placementName != null) {
+            IronSource.showRewardedVideo(placementName);
+        } else {
+            IronSource.showRewardedVideo();
+        }
+    }
+
+
     private class StubRewardedVideoListener implements RewardedVideoListener {
 
         @Override

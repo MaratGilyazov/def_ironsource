@@ -53,9 +53,15 @@ struct IronSourceWrapperClass
   jobject                 m_ISW_JNI;
 
   jmethodID               m_init;
+  jmethodID               m_setConsent;
   jmethodID               m_onPause;
   jmethodID               m_onResume;
   jmethodID               m_validateIntegration;
+  jmethodID               m_loadInterstitial;
+  jmethodID               m_isInterstitialReady;
+  jmethodID               m_showInterstitial;
+  jmethodID               m_isRewardedReady;
+  jmethodID               m_showRewarded;
 };
 
 IronSourceWrapperClass g_isw;
@@ -66,9 +72,15 @@ void Ironsource_InitExtension() {
     
     jclass cls = GetClass(env, "com/afeskov/defironsource/IronSourceWrapper");
     g_isw.m_init = env->GetMethodID(cls, "init", "(Ljava/lang/String;)V");
+    g_isw.m_setConsent = env->GetMethodID(cls, "setConsent", "(Z)V");
     g_isw.m_onPause = env->GetMethodID(cls, "onPause", "()V");
     g_isw.m_onResume = env->GetMethodID(cls, "onResume", "()V");
     g_isw.m_validateIntegration = env->GetMethodID(cls, "validateIntegration", "()V");
+    g_isw.m_loadInterstitial = env->GetMethodID(cls, "loadInterstitial", "()V");
+    g_isw.m_isInterstitialReady = env->GetMethodID(cls, "isInterstitialReady", "()Z");
+    g_isw.m_showInterstitial = env->GetMethodID(cls, "showInterstitial", "(Ljava/lang/String;)V");
+    g_isw.m_isRewardedReady = env->GetMethodID(cls, "isRewardedReady", "()Z");
+    g_isw.m_showRewarded = env->GetMethodID(cls, "showRewarded", "(Ljava/lang/String;)V");
 
     jmethodID jni_constructor = env->GetMethodID(cls, "<init>", "(Landroid/app/Activity;)V");
     g_isw.m_ISW_JNI = env->NewGlobalRef(env->NewObject(cls, jni_constructor, dmGraphics::GetNativeAndroidActivity()));
@@ -94,8 +106,8 @@ void Ironsource_Init(const char* api_key, bool gdpr_consent) {
 
     jstring appkey = env->NewStringUTF(api_key);
     env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_init, appkey);
+    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_setConsent, gdpr_consent ? JNI_TRUE : JNI_FALSE);
     env->DeleteLocalRef(appkey);
-    // TODO IronSource.setConsent(gdpr_consent);
 }
 
 void Ironsource_ValidateIntegration() {
@@ -105,10 +117,41 @@ void Ironsource_ValidateIntegration() {
     env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_validateIntegration);
 }
 
-void Ironsource_LoadInterstitial() { }
-bool Ironsource_IsInterstitialReady() { }
-void Ironsource_ShowInterstitial() { }
-bool Ironsource_IsRewardedReady() { }
-void Ironsource_ShowRewarded() { }
+void Ironsource_LoadInterstitial() {
+    AttachScope attachscope;
+    JNIEnv* env = attachscope.m_Env;
+
+    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_loadInterstitial);
+}
+
+bool Ironsource_IsInterstitialReady() {
+    AttachScope attachscope;
+    JNIEnv* env = attachscope.m_Env;
+
+    jboolean return_value = (jboolean)env->CallBooleanMethod(g_isw.m_ISW_JNI, g_isw.m_isInterstitialReady);
+    return JNI_TRUE == return_value;
+}
+
+void Ironsource_ShowInterstitial() {
+    AttachScope attachscope;
+    JNIEnv* env = attachscope.m_Env;
+
+    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_showInterstitial, NULL);
+}
+
+bool Ironsource_IsRewardedReady() {
+    AttachScope attachscope;
+    JNIEnv* env = attachscope.m_Env;
+
+    jboolean return_value = (jboolean)env->CallBooleanMethod(g_isw.m_ISW_JNI, g_isw.m_isRewardedReady);
+    return JNI_TRUE == return_value;
+}
+
+void Ironsource_ShowRewarded() {
+    AttachScope attachscope;
+    JNIEnv* env = attachscope.m_Env;
+
+    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_showRewarded, NULL);
+}
 
 #endif
