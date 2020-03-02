@@ -3,75 +3,7 @@
 #include <dmsdk/sdk.h>
 #include "com_afeskov_defironsource_IronSourceWrapper.h"
 #include "../ironsource.h"
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdOpened(JNIEnv *env, jclass jcls) {
-
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdClosed(JNIEnv *env, jclass jcls) {
-
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAvailabilityChanged(JNIEnv *env, jclass jcls, jboolean jbool) {
-
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdStarted(JNIEnv *env, jclass jcls) {
-
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdEnded(JNIEnv *env, jclass jcls) {
-
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdRewarded(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
-    const char* ch = env->GetStringUTFChars(jstr, 0);
-    dmLogUserDebug("onRewardedVideoAdRewarded %s\n", ch);
-    env->ReleaseStringUTFChars(jstr, ch);
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdShowFailed(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
-    const char* ch = env->GetStringUTFChars(jstr, 0);
-    dmLogUserDebug("onRewardedVideoAdShowFailed %s\n", ch);
-    env->ReleaseStringUTFChars(jstr, ch);
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdClicked(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
-    const char* ch = env->GetStringUTFChars(jstr, 0);
-    env->ReleaseStringUTFChars(jstr, ch);
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdReady(JNIEnv *env, jclass jcls) {
-
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdLoadFailed(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
-    const char* ch = env->GetStringUTFChars(jstr, 0);
-    dmLogUserDebug("onInterstitialAdLoadFailed %s\n", ch);
-    env->ReleaseStringUTFChars(jstr, ch);
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdOpened(JNIEnv *env, jclass jcls) {
-
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdClosed(JNIEnv *env, jclass jcls) {
-
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdShowSucceeded(JNIEnv *env, jclass jcls) {
-
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdShowFailed(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
-    const char* ch = env->GetStringUTFChars(jstr, 0);
-    dmLogUserDebug("onInterstitialAdShowFailed %s\n", ch);
-    env->ReleaseStringUTFChars(jstr, ch);
-}
-
-JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdClicked(JNIEnv *env, jclass jcls) {
-
-}
+#include "../ironsource_callback.h"
 
 static JNIEnv* Attach()
 {
@@ -222,6 +154,81 @@ void Ironsource_ShowRewarded() {
     JNIEnv* env = attachscope.m_Env;
 
     env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_showRewarded, NULL);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdOpened(JNIEnv *env, jclass jcls) {
+    IronsourceCallback_add_to_queue((int)REWARDED_DID_OPEN);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdClosed(JNIEnv *env, jclass jcls) {
+    IronsourceCallback_add_to_queue((int)REWARDED_DID_CLOSE);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAvailabilityChanged(JNIEnv *env, jclass jcls, jboolean jbool) {
+    IronsourceCallback_add_to_queue((bool)jbool ? (int)REWARDED_AVAILABLE : (int)REWARDED_NOT_AVAILABLE);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdStarted(JNIEnv *env, jclass jcls) {
+    IronsourceCallback_add_to_queue((int)REWARDED_DID_START);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdEnded(JNIEnv *env, jclass jcls) {
+    IronsourceCallback_add_to_queue((int)REWARDED_DID_END);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdRewarded(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
+    const char* ch = env->GetStringUTFChars(jstr, 0);
+    dmLogUserDebug("onRewardedVideoAdRewarded placementId: %i placementName: %s", (int)jnum, ch);
+    IronsourceCallback_add_to_queue((int)REWARDED_DID_COMPLETE);
+    env->ReleaseStringUTFChars(jstr, ch);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdShowFailed(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
+    const char* ch = env->GetStringUTFChars(jstr, 0);
+    dmLogUserDebug("onRewardedVideoAdShowFailed errorCode: %i errorMessage: %s", (int)jnum, ch);
+    IronsourceCallback_add_to_queue((int)REWARDED_DID_FAIL);
+    env->ReleaseStringUTFChars(jstr, ch);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdClicked(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
+    const char* ch = env->GetStringUTFChars(jstr, 0);
+    dmLogUserDebug("onRewardedVideoAdClicked placementId: %i placementName: %s", (int)jnum, ch);
+    IronsourceCallback_add_to_queue((int)REWARDED_DID_CLICK);
+    env->ReleaseStringUTFChars(jstr, ch);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdReady(JNIEnv *env, jclass jcls) {
+    IronsourceCallback_add_to_queue((int)INTERSTITIAL_DID_LOAD);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdLoadFailed(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
+    const char* ch = env->GetStringUTFChars(jstr, 0);
+    dmLogUserDebug("onInterstitialAdLoadFailed errorCode: %i errorMessage: %s", (int)jnum, ch);
+    IronsourceCallback_add_to_queue((int)INTERSTITIAL_DID_FAIL_TO_LOAD);
+    env->ReleaseStringUTFChars(jstr, ch);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdOpened(JNIEnv *env, jclass jcls) {
+    IronsourceCallback_add_to_queue((int)INTERSTITIAL_DID_OPEN);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdClosed(JNIEnv *env, jclass jcls) {
+    IronsourceCallback_add_to_queue((int)INTERSTITIAL_DID_CLOSE);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdShowSucceeded(JNIEnv *env, jclass jcls) {
+    IronsourceCallback_add_to_queue((int)INTERSTITIAL_DID_SHOW);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdShowFailed(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
+    const char* ch = env->GetStringUTFChars(jstr, 0);
+    dmLogUserDebug("onInterstitialAdShowFailed errorCode: %i errorMessage: %s", (int)jnum, ch);
+    IronsourceCallback_add_to_queue((int)INTERSTITIAL_DID_FAIL_TO_SHOW);
+    env->ReleaseStringUTFChars(jstr, ch);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdClicked(JNIEnv *env, jclass jcls) {
+    IronsourceCallback_add_to_queue((int)INTERSTITIAL_DID_CLICK);
 }
 
 #endif
