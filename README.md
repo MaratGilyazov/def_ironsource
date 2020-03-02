@@ -1,10 +1,10 @@
 # IronSource SDK 
 
-With Facebook network under mediation [iOS].
-Connect dependency as https://github.com/MaratGilyazov/def_ironsource/archive/mediation/facebook.zip
+With UnityAds network under mediation [iOS].
+Connect dependency as https://github.com/MaratGilyazov/def_ironsource/archive/mediation/unityads.zip
 
-Guide: https://developers.ironsrc.com/ironsource-mobile/ios/facebook-mediation-guide/
-Note As of SDK version 5.0.1 (ironSource FAN adapter version 4.3.1) onwards, Facebook Audience Network does not support devices running iOS version smaller than 9.
+Guide: https://developers.ironsrc.com/ironsource-mobile/ios/unityads-mediation-guide/
+
 
 This is a native extension for [Defold engine](http://www.defold.com) with partial implementation of  allows to use [IronSource SDK](https://developers.ironsrc.com/ironsource-mobile/ios/ios-sdk/#step-1)
 
