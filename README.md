@@ -1,6 +1,15 @@
 # IronSource SDK 
 
-With Admob network under mediation.
+With Admob network under mediation [iOS].
+Connect dependency as https://github.com/MaratGilyazov/def_ironsource/archive/mediation/admob.zip
+
+Guide: https://developers.ironsrc.com/ironsource-mobile/ios/admob-mediation-guide/
+AdMob’s SDK requires publishers to add their AdMob App ID to the app’s plist as described here.
+Alternatively, you can make this change programmatically
+```lua
+<key>GADApplicationIdentifier</key>
+<string>[APP_ID]</string>
+```
 
 This is a native extension for [Defold engine](http://www.defold.com) with partial implementation of  allows to use [IronSource SDK](https://developers.ironsrc.com/ironsource-mobile/ios/ios-sdk/#step-1)
 
