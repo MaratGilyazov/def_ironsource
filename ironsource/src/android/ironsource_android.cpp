@@ -1,7 +1,77 @@
 #if defined(DM_PLATFORM_ANDROID)
 
 #include <dmsdk/sdk.h>
+#include "com_afeskov_defironsource_IronSourceWrapper.h"
 #include "../ironsource.h"
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdOpened(JNIEnv *env, jclass jcls) {
+
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdClosed(JNIEnv *env, jclass jcls) {
+
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAvailabilityChanged(JNIEnv *env, jclass jcls, jboolean jbool) {
+
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdStarted(JNIEnv *env, jclass jcls) {
+
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdEnded(JNIEnv *env, jclass jcls) {
+
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdRewarded(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
+    const char* ch = env->GetStringUTFChars(jstr, 0);
+    dmLogUserDebug("onRewardedVideoAdRewarded %s\n", ch);
+    env->ReleaseStringUTFChars(jstr, ch);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdShowFailed(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
+    const char* ch = env->GetStringUTFChars(jstr, 0);
+    dmLogUserDebug("onRewardedVideoAdShowFailed %s\n", ch);
+    env->ReleaseStringUTFChars(jstr, ch);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdClicked(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
+    const char* ch = env->GetStringUTFChars(jstr, 0);
+    env->ReleaseStringUTFChars(jstr, ch);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdReady(JNIEnv *env, jclass jcls) {
+
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdLoadFailed(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
+    const char* ch = env->GetStringUTFChars(jstr, 0);
+    dmLogUserDebug("onInterstitialAdLoadFailed %s\n", ch);
+    env->ReleaseStringUTFChars(jstr, ch);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdOpened(JNIEnv *env, jclass jcls) {
+
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdClosed(JNIEnv *env, jclass jcls) {
+
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdShowSucceeded(JNIEnv *env, jclass jcls) {
+
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdShowFailed(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
+    const char* ch = env->GetStringUTFChars(jstr, 0);
+    dmLogUserDebug("onInterstitialAdShowFailed %s\n", ch);
+    env->ReleaseStringUTFChars(jstr, ch);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdClicked(JNIEnv *env, jclass jcls) {
+
+}
 
 static JNIEnv* Attach()
 {
