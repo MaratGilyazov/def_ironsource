@@ -1,12 +1,10 @@
 # IronSource SDK
 
-This is a native extension for [Defold engine](http://www.defold.com) with partial implementation of  allows to use [IronSource SDK](https://developers.ironsrc.com/ironsource-mobile/ios/ios-sdk/#step-1)
+This is a native extension for [Defold engine](http://www.defold.com) with partial implementation of allows to use [IronSource iOS SDK](https://developers.ironsrc.com/ironsource-mobile/ios/ios-sdk/#step-1), [IronSource Android SDK](https://developers.ironsrc.com/ironsource-mobile/android/android-sdk/#step-1) 
 
-ATTENTION! Currently only iOS SDK is supported! No Android support in current implementation!
+ATTENTION! Not all API methods are fully supported; see LUA Api section below for the list of supported methods. Only Interstitials and Rewardeds are supported, no Banners support.
 
-ATTENTION-2! Even for iOS not all API methods are fully supported; see LUA Api section below for the list of supported methods. Only Interstitials and Rewardeds are supported, no Banners support.
-
-Used IronSource iOS SDK v6.14.0: https://dl.bintray.com/ironsource-mobile/ios-sdk/IronSource6.14.0.zip
+Used com.ironsource.sdk:mediationsdk:6.14.0.1 for Android, IronSource iOS SDK v6.14.0: https://dl.bintray.com/ironsource-mobile/ios-sdk/IronSource6.14.0.zip
 
 If you want to use IS as a mediation service, you need to add iOS SDKs and adapters for other ad networks by your own. But this should not require any changes in the extension code.
 
@@ -17,7 +15,7 @@ Open your game.project file and in the dependencies field under project add:
 
 >https://github.com/MaratGilyazov/def_ironsource/archive/master.zip
 
-Also you need to modify your info.plist as said here: https://developers.ironsrc.com/ironsource-mobile/ios/ios-sdk/#step-1
+For iOS you also need to modify your info.plist as said here: https://developers.ironsrc.com/ironsource-mobile/ios/ios-sdk/#step-1
 Add this to your Defold info.plist template: 
 ```lua
 <key>NSAppTransportSecurity</key>  
