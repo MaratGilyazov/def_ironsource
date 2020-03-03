@@ -1,0 +1,115 @@
+- name: ironsource
+  type: table
+  desc: Functions and constants for interacting with ironSource APIs
+
+  members:
+
+#*****************************************************************************************************
+
+  - name: init
+    type: function
+
+    parameters:
+      - name: app_key
+        type: string
+      - name: gdpr_consent
+        type: boolean
+
+#*****************************************************************************************************
+
+  - name: validate_integration
+    type: function
+
+#*****************************************************************************************************
+
+  - name: set_callback
+    type: function
+
+    parameters:
+    - name: callback
+      type: function
+
+#*****************************************************************************************************
+
+  - name: load_interstitial
+    type: function
+
+#*****************************************************************************************************
+
+  - name: is_interstitial_ready
+    type: function
+
+    returns:
+    - name: availability
+      type: boolean
+
+#*****************************************************************************************************
+
+  - name: show_interstitial
+    type: function
+
+#*****************************************************************************************************
+
+  - name: is_rewarded_ready
+    type: function
+
+    returns:
+    - name: availability
+      type: boolean
+
+#*****************************************************************************************************
+
+  - name: show_rewarded
+    type: function
+
+#*****************************************************************************************************
+
+  - name: INTERSTITIAL_DID_LOAD
+    type: number
+
+  - name: INTERSTITIAL_DID_SHOW
+    type: number
+
+  - name: INTERSTITIAL_DID_CLICK
+    type: number
+
+  - name: INTERSTITIAL_DID_CLOSE
+    type: number
+
+  - name: INTERSTITIAL_DID_OPEN
+    type: number
+
+  - name: INTERSTITIAL_DID_FAIL_TO_SHOW
+    type: number
+
+  - name: INTERSTITIAL_DID_FAIL_TO_LOAD
+    type: number
+
+#*****************************************************************************************************
+
+  - name: REWARDED_AVAILABLE
+    type: number
+
+  - name: REWARDED_NOT_AVAILABLE
+    type: number
+
+  - name: REWARDED_DID_COMPLETE
+    type: number
+
+  - name: REWARDED_DID_FAIL
+    type: number
+
+  - name: REWARDED_DID_OPEN
+    type: number
+
+  - name: REWARDED_DID_CLOSE
+    type: number
+
+  - name: REWARDED_DID_CLICK
+    type: number
+
+  - name: REWARDED_DID_START
+    type: number
+
+  - name: REWARDED_DID_END
+    type: number
