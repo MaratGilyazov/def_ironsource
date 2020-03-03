@@ -1,7 +1,6 @@
 [project]
-title = DefVideoAds
-version = 1.0
-dependencies = https://github.com/andsve/dirtylarry/archive/master.zip
+title = ironsource
+dependencies = https://github.com/britzl/gooey/archive/8.0.0.zip
 
 [bootstrap]
 main_collection = /example/main.collectionc
@@ -10,22 +9,22 @@ main_collection = /example/main.collectionc
 game_binding = /input/game.input_bindingc
 
 [display]
-width = 1280
-height = 720
+width = 540
+height = 960
 dynamic_orientation = 0
-
-[physics]
-scale = 0.02
 
 [script]
 shared_state = 1
 
 [library]
-include_dirs = defunityads
+include_dirs = ironsource
 
 [ios]
-bundle_identifier = com.agulev.test
+bundle_identifier = com.defironsource.test
 
 [android]
-package = com.agulev.test
+package = com.defironsource.test
+
+[ironsource]
+app_key = b587fdad
 
