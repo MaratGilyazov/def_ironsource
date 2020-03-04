@@ -1,19 +1,30 @@
+[project]
+title = ironsource
+dependencies = https://github.com/britzl/gooey/archive/8.0.0.zip
+
 [bootstrap]
-main_collection = /main/main.collectionc
+main_collection = /example/main.collectionc
+
+[input]
+game_binding = /input/game.input_bindingc
+
+[display]
+width = 540
+height = 960
+dynamic_orientation = 0
 
 [script]
 shared_state = 1
 
-[display]
-width = 960
-height = 640
-
-[android]
-input_method = HiddenInputField
-
-[project]
-title = ironsource
-
 [library]
 include_dirs = ironsource
+
+[ios]
+bundle_identifier = com.defironsource.test
+
+[android]
+package = com.defironsource.test
+
+[ironsource]
+app_key = b587fdad
 
