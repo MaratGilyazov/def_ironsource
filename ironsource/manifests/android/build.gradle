@@ -1,12 +1,13 @@
 repositories {
 	// https://developers.ironsrc.com/ironsource-mobile/android/android-sdk/#step-1
     maven {
-        url "https://dl.bintray.com/ironsource-mobile/android-sdk"
+        url 'https://dl.bintray.com/ironsource-mobile/android-sdk'
     }
-    
-    // https://developers.ironsrc.com/ironsource-mobile/android/admob-mediation-guide/#step-4
     maven {
-        url "http://dl.bintray.com/ironsource-mobile/android-adapters"
+        url 'https://dl.bintray.com/ironsource-mobile/android-adapters'
+    }
+    maven {
+        url "https://jitpack.io"
     }
 }
 
@@ -14,7 +15,21 @@ dependencies {
 	// https://developers.ironsrc.com/ironsource-mobile/android/android-sdk/#step-1
     implementation 'com.ironsource.sdk:mediationsdk:6.15.0@jar' 
 
-    // https://developers.ironsrc.com/ironsource-mobile/android/admob-mediation-guide/#step-4
+    // Add AdMob Network
     implementation 'com.google.android.gms:play-services-ads:18.3.0'
     implementation 'com.ironsource.adapters:admobadapter:4.3.7@jar'
+    
+    // Add Applovin Network
+    //implementation 'com.ironsource.adapters:applovinadapter:4.3.8@jar'
+    
+    // Add Facebook Network
+    //implementation 'com.ironsource.adapters:facebookadapter:4.3.11@jar'
+    //implementation 'com.facebook.android:audience-network-sdk:5.7.1'
+    
+    // Add UnityAds Network
+    //implementation 'com.ironsource.adapters:unityadsadapter:4.1.7@jar'
+    
+    // Add Vungle Network
+    implementation 'com.ironsource.adapters:vungleadapter:4.1.6@jar'
+    implementation 'com.vungle:publisher-sdk-android:6.4.11'
 }
