@@ -3,9 +3,18 @@ repositories {
     maven {
         url "https://dl.bintray.com/ironsource-mobile/android-sdk"
     }
+    
+    // https://developers.ironsrc.com/ironsource-mobile/android/admob-mediation-guide/#step-4
+    maven {
+        url "http://dl.bintray.com/ironsource-mobile/android-adapters"
+    }
 }
 
 dependencies {
 	// https://developers.ironsrc.com/ironsource-mobile/android/android-sdk/#step-1
     implementation 'com.ironsource.sdk:mediationsdk:6.15.0@jar' 
+
+    // https://developers.ironsrc.com/ironsource-mobile/android/admob-mediation-guide/#step-4
+    implementation 'com.google.android.gms:play-services-ads:18.3.0'
+    implementation 'com.ironsource.adapters:admobadapter:4.3.7@jar'
 }
