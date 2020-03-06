@@ -27,7 +27,8 @@ Add this to your Defold info.plist template:
 ## Example
 ```lua
 if ironsource then
-	ironsource.init("your_app_key", true)
+	ironsource.set_consent(true)
+	ironsource.init("your_app_key")
 	ironsource.set_callback(ironsource_callback)
 	ironsource.validate_integration()
 	ironsource.load_interstitial()
@@ -85,7 +86,10 @@ end
 #### ironsource.init(string app_key, bool gdpr_consent)
 Initializes IronSource, call this before any other calls to IS. 
 app_key - is your APP_KEY from the IS dashboard
-gdpr_consent - boolean flag to forward your user's consent regarding sensitive data; send true for "OptIn", if permission are granted
+gdpr_consent [optional parameter] - boolean flag to forward your user's consent regarding sensitive data; send true for "OptIn", if permission are granted; it's an optional parameter, you can call "set_consent()" method instead
+#### ironsource.set_consent(bool consent)
+Set your user's consent regarding sensitive data. Call this before "init()" method, or send consent with "init(key, consent)" call
+consent - boolean flag to forward your user's consent regarding sensitive data; send true for "OptIn", if permission are granted
 #### ironsource.set_callback(function ironsource_callback)
 ironsource_callback(self, message_type, message) - callback for all types of IS delegate methods, see the example with all events listed. "message" table is always empty in this implementation
 #### ironsource.validate_integration()

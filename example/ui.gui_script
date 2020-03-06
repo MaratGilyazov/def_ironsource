@@ -122,7 +122,8 @@ function init(self)
   
   if ironsource then
     log(self, "ironsource init with app_key: " .. YOUR_APP_KEY)
-    ironsource.init(YOUR_APP_KEY, GDPR_CONSENT)
+    ironsource.set_consent(GDPR_CONSENT)
+    ironsource.init(YOUR_APP_KEY)
     ironsource.set_callback(ironsource_callback)
     ironsource.validate_integration()
     ironsource.load_interstitial()

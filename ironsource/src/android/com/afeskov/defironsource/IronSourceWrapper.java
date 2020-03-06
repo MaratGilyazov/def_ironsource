@@ -58,6 +58,7 @@ public class IronSourceWrapper {
 
     public void setConsent(boolean consent) {
         IronSource.setConsent(consent);
+        IronSource.setMetaData("do_not_sell", !consent ? "true" : "false");
     }
 
     public void loadInterstitial() {
