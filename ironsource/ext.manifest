@@ -5,3 +5,6 @@ platforms:
         context:
             frameworks: ["UIKit", "AdSupport", "StoreKit"]
             linkFlags:  ["-ObjC"]
+    android:
+        context:
+            aaptExtraPackages: ['com.google.android.gms.common']
