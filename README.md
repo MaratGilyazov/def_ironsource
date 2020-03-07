@@ -4,7 +4,7 @@ This is a native extension for [Defold engine](http://www.defold.com) with parti
 
 ATTENTION! Not all API methods are fully supported; see LUA Api section below for the list of supported methods. Only Interstitials and Rewardeds are supported, no Banners support.
 
-Used com.ironsource.sdk:mediationsdk:6.14.0.1 for Android, IronSource iOS SDK v6.14.0: https://dl.bintray.com/ironsource-mobile/ios-sdk/IronSource6.14.0.zip
+Used IronSource SDK version 6.15.0 both for Android and iOS 
 
 If you want to use IS as a mediation service, you need to add iOS SDKs and adapters for other ad networks by your own. But this should not require any changes in the extension code.
 
