@@ -86,6 +86,7 @@ end
 #### ironsource.init(string app_key, bool gdpr_consent)
 Initializes IronSource, call this before any other calls to IS. 
 app_key - is your APP_KEY from the IS dashboard
+
 gdpr_consent [optional parameter] - boolean flag to forward your user's consent regarding sensitive data; send true for "OptIn", if permission are granted; it's an optional parameter, you can call "set_consent()" method instead
 #### ironsource.set_consent(bool consent)
 Set your user's consent regarding sensitive data. Call this before "init()" method, or send consent with "init(key, consent)" call
