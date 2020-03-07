@@ -162,6 +162,8 @@ void Ironsource_ShowRewarded() {
     env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_showRewarded, NULL);
 }
 
+//-----------------------------------------------------------------------------
+
 JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onRewardedVideoAdOpened(JNIEnv *env, jclass jcls) {
     IronsourceCallback_add_to_queue((int)REWARDED_DID_OPEN);
 }
@@ -203,6 +205,8 @@ JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onReward
     env->ReleaseStringUTFChars(jstr, ch);
 }
 
+//-----------------------------------------------------------------------------
+
 JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdReady(JNIEnv *env, jclass jcls) {
     IronsourceCallback_add_to_queue((int)INTERSTITIAL_DID_LOAD);
 }
@@ -236,5 +240,35 @@ JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInters
 JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdClicked(JNIEnv *env, jclass jcls) {
     IronsourceCallback_add_to_queue((int)INTERSTITIAL_DID_CLICK);
 }
+
+//-----------------------------------------------------------------------------
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdLoaded(JNIEnv *env, jclass jcls) {
+    dmLogUserDebug("onBannerAdLoaded");
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdLoadFailed(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
+    const char* ch = env->GetStringUTFChars(jstr, 0);
+    dmLogUserDebug("onBannerAdLoadFailed errorCode: %i errorMessage: %s", (int)jnum, ch);
+    IronsourceCallback_add_to_queue((int)INTERSTITIAL_DID_FAIL_TO_LOAD);
+    env->ReleaseStringUTFChars(jstr, ch);
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdClicked(JNIEnv *env, jclass jcls) {
+    dmLogUserDebug("onBannerAdClicked");
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdScreenPresented(JNIEnv *env, jclass jcls) {
+    dmLogUserDebug("onBannerAdScreenPresented");
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdScreenDismissed(JNIEnv *env, jclass jcls) {
+    dmLogUserDebug("onBannerAdScreenDismissed");
+}
+
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdLeftApplication(JNIEnv *env, jclass jcls) {
+    dmLogUserDebug("onBannerAdLeftApplication");
+}
+
 
 #endif

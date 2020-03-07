@@ -6,6 +6,7 @@ import com.ironsource.mediationsdk.IronSource;
 import com.ironsource.mediationsdk.integration.IntegrationHelper;
 import com.ironsource.mediationsdk.logger.IronSourceError;
 import com.ironsource.mediationsdk.model.Placement;
+import com.ironsource.mediationsdk.sdk.BannerListener;
 import com.ironsource.mediationsdk.sdk.InterstitialListener;
 import com.ironsource.mediationsdk.sdk.RewardedVideoListener;
 
@@ -14,6 +15,7 @@ public class IronSourceWrapper {
     private Activity activity;
     private RewardedVideoListener rewardedVideoListener;
     private InterstitialListener interstitialListener;
+    private BannerListener bannerListener;
 
     public static native void onRewardedVideoAdOpened();
     public static native void onRewardedVideoAdClosed();
@@ -32,10 +34,18 @@ public class IronSourceWrapper {
     public static native void onInterstitialAdShowFailed(int error, String message);
     public static native void onInterstitialAdClicked();
 
+    public static native void onBannerAdLoaded();
+    public static native void onBannerAdLoadFailed(int error, String message);
+    public static native void onBannerAdClicked();
+    public static native void onBannerAdScreenPresented();
+    public static native void onBannerAdScreenDismissed();
+    public static native void onBannerAdLeftApplication();
+
     public IronSourceWrapper(Activity appActivity) {
         activity = appActivity;
         rewardedVideoListener = new DefRewardedVideoListener();
         interstitialListener = new DefInterstitialListener();
+        bannerListener = new DefBannerListener();
     }
 
     public void init(String appKey) {
@@ -177,6 +187,41 @@ public class IronSourceWrapper {
         @Override
         public void onInterstitialAdClicked() {
             IronSourceWrapper.onInterstitialAdClicked();
+        }
+    }
+
+    private class DefBannerListener implements BannerListener {
+
+        @Override
+        public void onBannerAdLoaded() {
+            IronSourceWrapper.onBannerAdLoaded();
+        }
+
+        @Override
+        public void onBannerAdLoadFailed(IronSourceError ironSourceError) {
+            int error = ironSourceError.getErrorCode();
+            String message = ironSourceError.getErrorMessage();
+            IronSourceWrapper.onBannerAdLoadFailed(error, message);
+        }
+
+        @Override
+        public void onBannerAdClicked() {
+            IronSourceWrapper.onBannerAdClicked();
+        }
+
+        @Override
+        public void onBannerAdScreenPresented() {
+            IronSourceWrapper.onBannerAdScreenPresented();
+        }
+
+        @Override
+        public void onBannerAdScreenDismissed() {
+            IronSourceWrapper.onBannerAdScreenDismissed();
+        }
+
+        @Override
+        public void onBannerAdLeftApplication() {
+            IronSourceWrapper.onBannerAdLeftApplication();
         }
     }
 }

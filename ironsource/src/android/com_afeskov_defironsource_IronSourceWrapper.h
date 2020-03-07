@@ -127,6 +127,54 @@ JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInters
 JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInterstitialAdClicked
   (JNIEnv *, jclass);
 
+/*
+ * Class:     com_afeskov_defironsource_IronSourceWrapper
+ * Method:    onBannerAdLoaded
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdLoaded
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_afeskov_defironsource_IronSourceWrapper
+ * Method:    onBannerAdLoadFailed
+ * Signature: (ILjava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdLoadFailed
+  (JNIEnv *, jclass, jint, jstring);
+
+/*
+ * Class:     com_afeskov_defironsource_IronSourceWrapper
+ * Method:    onBannerAdClicked
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdClicked
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_afeskov_defironsource_IronSourceWrapper
+ * Method:    onBannerAdScreenPresented
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdScreenPresented
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_afeskov_defironsource_IronSourceWrapper
+ * Method:    onBannerAdScreenDismissed
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdScreenDismissed
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_afeskov_defironsource_IronSourceWrapper
+ * Method:    onBannerAdLeftApplication
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdLeftApplication
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif
