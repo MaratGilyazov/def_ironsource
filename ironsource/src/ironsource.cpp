@@ -12,9 +12,20 @@
 
 static int init(lua_State* L) {
     const char* api_key = luaL_checkstring(L, 1);
-    bool gdpr_consent = lua_toboolean(L, 2);
+
+    if (lua_type(L, 2) != LUA_TNONE) {
+        bool consent = lua_toboolean(L, 2);
+        Ironsource_SetConsent(consent); 
+    } 
+    Ironsource_Init(api_key);
     
-    Ironsource_Init(api_key, gdpr_consent);
+    return 0;
+}
+
+static int set_consent(lua_State* L) {
+    bool consent = lua_toboolean(L, 1);
+    Ironsource_SetConsent(consent); 
+
     return 0;
 }
 
@@ -58,6 +69,7 @@ static int set_callback(lua_State* L) {
 static const luaL_reg Module_methods[] =
 {
     {"init", init},
+    {"set_consent", set_consent},
     {"validate_integration", validate_integration},
     {"set_callback", set_callback},
     {"load_interstitial", load_interstitial},

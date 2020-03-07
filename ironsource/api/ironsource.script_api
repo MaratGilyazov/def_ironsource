@@ -14,6 +14,16 @@
         type: string
       - name: gdpr_consent
         type: boolean
+        oprional: true
+
+#*****************************************************************************************************
+
+  - name: set_consent
+    type: function
+
+    parameters:
+      - name: consent
+        type: boolean
 
 #*****************************************************************************************************
 

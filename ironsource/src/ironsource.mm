@@ -99,15 +99,17 @@ void Ironsource_OnAppResume() {
 
 }
 
-void Ironsource_Init(const char* api_key, bool gdpr_consent) {
-    if (gdpr_consent) {
+void Ironsource_SetConsent(bool consent) {
+    if (consent) {
         [IronSource setConsent:YES];
         [IronSource setMetaDataWithKey:@"do_not_sell" value:@"NO"];
     } else {
         [IronSource setConsent:NO];
         [IronSource setMetaDataWithKey:@"do_not_sell" value:@"YES"];
     }
-    
+}
+
+void Ironsource_Init(const char* api_key) {
     [IronSource initWithAppKey:[NSString stringWithUTF8String:api_key]];
 
     UIWindow* window = dmGraphics::GetNativeiOSUIWindow();

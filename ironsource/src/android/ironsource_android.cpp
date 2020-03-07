@@ -102,13 +102,19 @@ void Ironsource_OnAppResume() {
     env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_onResume);
 }
 
-void Ironsource_Init(const char* api_key, bool gdpr_consent) {
+void Ironsource_SetConsent(bool consent) {
+    AttachScope attachscope;
+    JNIEnv* env = attachscope.m_Env;
+
+    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_setConsent, consent ? JNI_TRUE : JNI_FALSE);
+}
+
+void Ironsource_Init(const char* api_key) {
     AttachScope attachscope;
     JNIEnv* env = attachscope.m_Env;
 
     jstring appkey = env->NewStringUTF(api_key);
     env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_init, appkey);
-    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_setConsent, gdpr_consent ? JNI_TRUE : JNI_FALSE);
     env->DeleteLocalRef(appkey);
 }
 
