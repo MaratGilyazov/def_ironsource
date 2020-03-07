@@ -4,7 +4,6 @@ local dirtylarry = require "gooey.themes.dirtylarry.dirtylarry"
 -- and put it in game.project at [ironsource] section
 -- or simply hardcode it here
 local YOUR_APP_KEY = sys.get_config("ironsource.app_key", "invalid")
-local GDPR_CONSENT = true
 
 local BACK_KEY = hash("back")
 local REWARDED = "rewardedVideo"
@@ -122,7 +121,6 @@ function init(self)
   
   if ironsource then
     log(self, "ironsource init with app_key: " .. YOUR_APP_KEY)
-    ironsource.set_consent(GDPR_CONSENT)
     ironsource.init(YOUR_APP_KEY)
     ironsource.set_callback(ironsource_callback)
     ironsource.validate_integration()
