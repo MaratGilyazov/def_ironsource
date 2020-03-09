@@ -1,6 +1,6 @@
 [project]
 title = ironsource
-dependencies = https://github.com/britzl/gooey/archive/8.0.0.zip
+dependencies = https://github.com/britzl/gooey/archive/8.0.0.zip,https://github.com/defold/extension-facebook/archive/master.zip
 
 [bootstrap]
 main_collection = /example/main.collectionc

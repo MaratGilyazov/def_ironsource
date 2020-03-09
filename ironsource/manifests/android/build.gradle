@@ -6,9 +6,9 @@ repositories {
     maven {
         url 'https://dl.bintray.com/ironsource-mobile/android-adapters'
     }
-    maven {
-        url "https://jitpack.io"
-    }
+    //maven {
+    //    url "https://jitpack.io"
+    //}
 }
 
 dependencies {
@@ -30,6 +30,6 @@ dependencies {
     //implementation 'com.ironsource.adapters:unityadsadapter:4.1.7@jar'
     
     // Add Vungle Network
-    implementation 'com.ironsource.adapters:vungleadapter:4.1.6@jar'
-    implementation 'com.vungle:publisher-sdk-android:6.4.11'
+    //implementation 'com.ironsource.adapters:vungleadapter:4.1.6@jar'
+    //implementation 'com.vungle:publisher-sdk-android:6.4.11'
 }
