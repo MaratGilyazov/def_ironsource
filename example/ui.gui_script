@@ -110,6 +110,19 @@ local function ironsource_callback(self, message_type)
     log(self, "ironsource_callback: REWARDED_DID_START")
   elseif message_type == ironsource.REWARDED_DID_END then
     log(self, "ironsource_callback: REWARDED_DID_END")
+  elseif message_type == ironsource.BANNER_DID_LOAD then
+    log(self, "ironsource_callback: BANNER_DID_LOAD")
+    
+  elseif message_type == ironsource.BANNER_DID_FAIL_TO_LOAD then
+    log(self, "ironsource_callback: BANNER_DID_FAIL_TO_LOAD")
+  elseif message_type == ironsource.BANNER_DID_CLICK then
+    log(self, "ironsource_callback: BANNER_DID_CLICK")
+  elseif message_type == ironsource.BANNER_WILL_PRESENT_SCREEN then
+    log(self, "ironsource_callback: BANNER_WILL_PRESENT_SCREEN")
+  elseif message_type == ironsource.BANNER_DID_DISMISS_SCREEN then
+    log(self, "ironsource_callback: BANNER_DID_DISMISS_SCREEN")
+  elseif message_type == ironsource.BANNER_WILL_LEAVE_APP then
+    log(self, "ironsource_callback: BANNER_WILL_LEAVE_APP")
   end
 end
 
@@ -125,6 +138,15 @@ function init(self)
     ironsource.set_callback(ironsource_callback)
     ironsource.validate_integration()
     ironsource.load_interstitial()
+
+    print(ironsource.SIZE_BANNER)
+    print(ironsource.SIZE_LARGE)
+    print(ironsource.SIZE_RECTANGLE)
+    print(ironsource.SIZE_SMART)
+    ironsource.load_banner(ironsource.SIZE_BANNER)
+    ironsource.show_banner()
+    ironsource.hide_banner()
+    ironsource.unload_banner()
   else
     log(self, "ironsource - not supported platform: " .. sys.get_sys_info().system_name)
   end

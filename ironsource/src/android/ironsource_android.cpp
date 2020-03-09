@@ -64,6 +64,10 @@ struct IronSourceWrapperClass
   jmethodID               m_showInterstitial;
   jmethodID               m_isRewardedReady;
   jmethodID               m_showRewarded;
+  jmethodID               m_loadBanner;
+  jmethodID               m_unloadBanner;
+  jmethodID               m_showBanner;
+  jmethodID               m_hideBanner;
 };
 
 IronSourceWrapperClass g_isw;
@@ -83,6 +87,10 @@ void Ironsource_InitExtension() {
     g_isw.m_showInterstitial = env->GetMethodID(cls, "showInterstitial", "(Ljava/lang/String;)V");
     g_isw.m_isRewardedReady = env->GetMethodID(cls, "isRewardedReady", "()Z");
     g_isw.m_showRewarded = env->GetMethodID(cls, "showRewarded", "(Ljava/lang/String;)V");
+    g_isw.m_loadBanner = env->GetMethodID(cls, "loadBanner", "(ILjava/lang/String;)V");
+    g_isw.m_unloadBanner = env->GetMethodID(cls, "unloadBanner", "()V");
+    g_isw.m_showBanner = env->GetMethodID(cls, "showBanner", "()V");
+    g_isw.m_hideBanner = env->GetMethodID(cls, "hideBanner", "()V");
 
     jmethodID jni_constructor = env->GetMethodID(cls, "<init>", "(Landroid/app/Activity;)V");
     g_isw.m_ISW_JNI = env->NewGlobalRef(env->NewObject(cls, jni_constructor, dmGraphics::GetNativeAndroidActivity()));
@@ -160,6 +168,34 @@ void Ironsource_ShowRewarded() {
     JNIEnv* env = attachscope.m_Env;
 
     env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_showRewarded, NULL);
+}
+
+void Ironsource_LoadBanner(int size) {
+    AttachScope attachscope;
+    JNIEnv* env = attachscope.m_Env;
+
+    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_loadBanner, size, NULL);
+}
+
+void Ironsource_UnloadBanner() {
+    AttachScope attachscope;
+    JNIEnv* env = attachscope.m_Env;
+
+    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_unloadBanner);
+}
+
+void Ironsource_ShowBanner() {
+    AttachScope attachscope;
+    JNIEnv* env = attachscope.m_Env;
+
+    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_showBanner);
+}
+
+void Ironsource_HideBanner() {
+    AttachScope attachscope;
+    JNIEnv* env = attachscope.m_Env;
+
+    env->CallVoidMethod(g_isw.m_ISW_JNI, g_isw.m_hideBanner);
 }
 
 //-----------------------------------------------------------------------------
@@ -244,30 +280,30 @@ JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onInters
 //-----------------------------------------------------------------------------
 
 JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdLoaded(JNIEnv *env, jclass jcls) {
-    dmLogUserDebug("onBannerAdLoaded");
+    IronsourceCallback_add_to_queue((int)BANNER_DID_LOAD);
 }
 
 JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdLoadFailed(JNIEnv *env, jclass jcls, jint jnum, jstring jstr) {
     const char* ch = env->GetStringUTFChars(jstr, 0);
     dmLogUserDebug("onBannerAdLoadFailed errorCode: %i errorMessage: %s", (int)jnum, ch);
-    IronsourceCallback_add_to_queue((int)INTERSTITIAL_DID_FAIL_TO_LOAD);
+    IronsourceCallback_add_to_queue((int)BANNER_DID_FAIL_TO_LOAD);
     env->ReleaseStringUTFChars(jstr, ch);
 }
 
 JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdClicked(JNIEnv *env, jclass jcls) {
-    dmLogUserDebug("onBannerAdClicked");
+    IronsourceCallback_add_to_queue((int)BANNER_DID_CLICK);
 }
 
 JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdScreenPresented(JNIEnv *env, jclass jcls) {
-    dmLogUserDebug("onBannerAdScreenPresented");
+    IronsourceCallback_add_to_queue((int)BANNER_WILL_PRESENT_SCREEN);
 }
 
 JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdScreenDismissed(JNIEnv *env, jclass jcls) {
-    dmLogUserDebug("onBannerAdScreenDismissed");
+    IronsourceCallback_add_to_queue((int)BANNER_DID_DISMISS_SCREEN);
 }
 
 JNIEXPORT void JNICALL Java_com_afeskov_defironsource_IronSourceWrapper_onBannerAdLeftApplication(JNIEnv *env, jclass jcls) {
-    dmLogUserDebug("onBannerAdLeftApplication");
+    IronsourceCallback_add_to_queue((int)BANNER_WILL_LEAVE_APP);
 }
 
 

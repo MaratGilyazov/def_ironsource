@@ -148,4 +148,20 @@ void Ironsource_ShowRewarded() {
     [IronSource showRewardedVideoWithViewController:uiViewController];
 }
 
+void Ironsource_LoadBanner(int size) {
+
+}
+
+void Ironsource_UnloadBanner() {
+
+}
+
+void Ironsource_ShowBanner() {
+
+}
+
+void Ironsource_HideBanner() {
+
+}
+
 #endif

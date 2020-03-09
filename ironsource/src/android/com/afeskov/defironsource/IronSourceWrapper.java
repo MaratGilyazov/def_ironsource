@@ -99,6 +99,22 @@ public class IronSourceWrapper {
         }
     }
 
+    public void loadBanner(int size, String placementName) {
+
+    }
+
+    public void unloadBanner() {
+
+    }
+
+    public void showBanner() {
+
+    }
+
+    public void hideBanner() {
+
+    }
+
     private class DefRewardedVideoListener implements RewardedVideoListener {
 
         @Override

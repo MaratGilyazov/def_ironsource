@@ -66,6 +66,27 @@ static int set_callback(lua_State* L) {
     return 0;
 }
 
+static int load_banner(lua_State* L) {
+    bool size = lua_tonumber(L, 1);
+    Ironsource_LoadBanner(size);
+    return 0;
+}
+
+static int unload_banner(lua_State* L) {
+    Ironsource_UnloadBanner();
+    return 0;
+}
+
+static int show_banner(lua_State* L) {
+    Ironsource_ShowBanner();
+    return 0;
+}
+
+static int hide_banner(lua_State* L) {
+    Ironsource_HideBanner();
+    return 0;
+}
+
 static const luaL_reg Module_methods[] =
 {
     {"init", init},
@@ -77,6 +98,10 @@ static const luaL_reg Module_methods[] =
     {"show_interstitial", show_interstitial},
     {"is_rewarded_ready", is_rewarded_ready},
     {"show_rewarded", show_rewarded},
+    {"load_banner", load_banner},
+    {"unload_banner", unload_banner},
+    {"show_banner", show_banner},
+    {"hide_banner", hide_banner},
     {0, 0}
 };
 
@@ -106,6 +131,19 @@ static void LuaInit(lua_State* L)
     SETCONSTANT(REWARDED_DID_CLICK)
     SETCONSTANT(REWARDED_DID_START)
     SETCONSTANT(REWARDED_DID_END)
+
+    SETCONSTANT(BANNER_DID_LOAD)
+    SETCONSTANT(BANNER_DID_FAIL_TO_LOAD)
+    SETCONSTANT(BANNER_DID_CLICK)
+    SETCONSTANT(BANNER_WILL_PRESENT_SCREEN)
+    SETCONSTANT(BANNER_DID_DISMISS_SCREEN)
+    SETCONSTANT(BANNER_WILL_LEAVE_APP)
+
+    SETCONSTANT(SIZE_BANNER)
+    SETCONSTANT(SIZE_LARGE)
+    SETCONSTANT(SIZE_RECTANGLE)
+    SETCONSTANT(SIZE_SMART)
+    // SETCONSTANT(SIZE_CUSTOM)
 
     #undef SETCONSTANT
     
